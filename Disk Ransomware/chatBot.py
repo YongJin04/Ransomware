@@ -21,4 +21,3 @@ asyncio.run(send_message())
 # main
 if __name__ == '__main__':
     send_message()
-
